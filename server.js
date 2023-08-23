@@ -28,7 +28,7 @@ function normalizePort (val) {
 	return false
 }
 
-const errorHandler = (error) => {
+function errorHandler (error) {
 	if (error.syscall !== 'listen') {
 		throw error;
 	}
