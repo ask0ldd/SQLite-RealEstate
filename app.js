@@ -19,17 +19,13 @@ app.use('/images', express.static(path.join(__dirname, 'images')))*/
 const users = require('./routes/users')
 
 // db sync
-/*sequelize.sync().then(() => {
+sequelize.sync().then(() => {
     console.log('Database synced')
 }).catch((error) => {
     console.error('Error syncing database:', error)
-})*/
+})
 
 app.use('/users', users)
-
-app.get('/', (req, res) => {
-	res.send('Helloooo World!')
-})
   
 module.exports = app
 
