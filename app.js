@@ -5,20 +5,30 @@ const helmet = require('helmet')
 
 // db
 const sequelize = require('./config/database')
-const User = require('./models/user.model.js')
+// const User = require('./models/user.model.js')
 
 const app = express()
 
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(helmet())
-app.use('/images', express.static(path.join(__dirname, 'images')))
+/*app.use(helmet())
+app.use('/images', express.static(path.join(__dirname, 'images')))*/
 
-sequelize.sync().then(() => {
+// use routes
+const users = require('./routes/users')
+
+// db sync
+/*sequelize.sync().then(() => {
     console.log('Database synced')
 }).catch((error) => {
     console.error('Error syncing database:', error)
+})*/
+
+app.use('/users', users)
+
+app.get('/', (req, res) => {
+	res.send('Helloooo World!')
 })
   
 module.exports = app
