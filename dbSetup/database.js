@@ -1,10 +1,10 @@
 const Sequelize = require('sequelize')
 
 const dbConfig = {
-    dialect:'sqlite',
-    host:'localhost',
-    storage:'./database.sqlite',
-    logging:false,
+    dialect: 'sqlite',
+    host: 'localhost',
+    storage: './database.sqlite',
+    logging: false,
 }
 
 const sequelize = new Sequelize(

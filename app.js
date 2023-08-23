@@ -9,6 +9,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(helmet())
 app.use('/images', express.static(path.join(__dirname, 'images')))
 
+module.exports = app
+
+
 /*const db = require("./models");
 const userRoutes = require('./routes/user.routes');
 const categoriesRoutes = require('./routes/categories.routes');
@@ -17,4 +20,3 @@ db.sequelize.sync().then(()=> console.log('db is ready'));
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoriesRoutes);
 app.use('/api/works', worksRoutes);*/
-module.exports = app
