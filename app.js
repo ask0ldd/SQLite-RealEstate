@@ -29,6 +29,7 @@ sequelize.sync().then(() => {
 
 app.use('/users', users)
 app.use('/rentals', rentals)
+app.use('/owners', rentals)
   
 module.exports = app
 
