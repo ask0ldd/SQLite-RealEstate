@@ -1,40 +1,43 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require('../config/database')
 
-const User = sequelize.define(
-    "user", {
+
+const Rental = sequelize.define(
+    "rental", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             unique: true,
         },
-        email: {
+        title: {
             type: DataTypes.STRING,
+            allowNull: false
+        },
+        location: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
+        rating: {
+            type: DataTypes.NUMBER,
             allowNull: false,
-            unique: true
+            validate: {
+                min: 0,
+                max: 5,
+            }
         },
-        password: {
+        description: {
             type: DataTypes.STRING,
             allowNull: false
         },
-        firstName: {
-            type: DataTypes.STRING,
-            allowNull: false
+        equipments: {
+            type: DataTypes.ARRAY(DataTypes.STRING)
         },
-        lastName: {
-            type: DataTypes.STRING,
-            allowNull: false
+        tags: {
+            type: DataTypes.ARRAY(DataTypes.STRING)
         },
-        city: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
-        country: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+
     },
 )
 
-module.exports = User
+module.exports = Rental
