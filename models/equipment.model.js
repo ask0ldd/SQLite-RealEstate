@@ -1,26 +1,23 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require('../config/database')
 
-const Owner = sequelize.define(
-    "Owner", {
+const Equipment = sequelize.define(
+    "Equipment", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrement: true,
             unique: true
         },
-        picture: {
+        name: {
             type: DataTypes.STRING
         },
-        firstname: {
-            type: DataTypes.STRING
-        },
-        lastname: {
-            type: DataTypes.STRING
-        },
+        idRental: {
+            type: DataTypes.INTEGER
+        }
     },
 )
 
-Owner.sync({ alter: true })
+Equipment.sync({ alter: true })
 
-module.exports = Owner
+module.exports = Equipment

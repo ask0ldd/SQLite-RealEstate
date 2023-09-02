@@ -15,10 +15,6 @@ server.on('listening', () => {
 	console.log('Listening on ' + bind)
 })
 
-/*app.get('/', (req, res) => {
-	res.send('Helloooo World!')
-})*/
-
 server.listen(port)
 
 function normalizePort (val) {
