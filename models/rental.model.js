@@ -78,9 +78,23 @@ const Equipment = sequelize.define(
     },
 )
 
-Rental.hasMany(Tag)
+const Picture = sequelize.define(
+    "Picture", {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true
+        },
+        url: {
+            type: DataTypes.STRING
+        },
+    },
+)
 
+Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
+Rental.hasMany(Picture)
 
 Rental.sync()
 
