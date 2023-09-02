@@ -16,7 +16,10 @@ const Rental = sequelize.define(
         },
         location: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                len: [5, 10]
+            }
         },
         rating: {
             type: DataTypes.NUMBER,
@@ -36,7 +39,9 @@ const Rental = sequelize.define(
         tags: {
             type: DataTypes.ARRAY(DataTypes.STRING)
         },
-
+        pictures: {
+            type: DataTypes.ARRAY(DataTypes.STRING)
+        },
     },
 )
 

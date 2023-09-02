@@ -10,6 +10,15 @@ const Owner = sequelize.define(
             autoIncrement: true,
             unique: true,
         },
+        picture: {
+            type: DataTypes.STRING,
+        },
+        firstname: {
+            type: DataTypes.STRING,
+        },
+        lastname: {
+            type: DataTypes.STRING,
+        },
     },
 )
 
