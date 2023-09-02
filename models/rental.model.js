@@ -9,6 +9,9 @@ const Rental = sequelize.define(
             autoIncrement: true,
             unique: true
         },
+        owner: {
+            type: DataTypes.INTEGER,
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -47,6 +50,38 @@ const Rental = sequelize.define(
     },
 )
 
-Rental.sync({ alter: true })
+const Tag = sequelize.define(
+    "Tag", {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true
+        },
+        value: {
+            type: DataTypes.STRING
+        },
+    },
+)
+
+const Equipment = sequelize.define(
+    "Equipment", {
+        id: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            autoIncrement: true,
+            unique: true
+        },
+        value: {
+            type: DataTypes.STRING
+        },
+    },
+)
+
+Rental.hasMany(Tag)
+
+Rental.hasMany(Equipment)
+
+Rental.sync()
 
 module.exports = Rental

@@ -21,6 +21,6 @@ const Owner = sequelize.define(
     },
 )
 
-Owner.sync({ alter: true })
+Owner.sync()
 
 module.exports = Owner
