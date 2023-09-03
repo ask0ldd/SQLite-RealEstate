@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require('../config/database')
 
-const Owner = sequelize.define(
-    "Owner", {
+const Host = sequelize.define(
+    "Host", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -21,6 +21,6 @@ const Owner = sequelize.define(
     },
 )
 
-Owner.sync()
+Host.sync()
 
-module.exports = Owner
+module.exports = Host

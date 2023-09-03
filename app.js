@@ -18,7 +18,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')))*/
 // use routes
 const users = require('./routes/users')
 const rentals = require('./routes/rentals')
-const owners = require('./routes/owners')
+const hosts = require('./routes/hosts')
 
 // db sync
 sequelize.sync().then(() => {
@@ -29,7 +29,7 @@ sequelize.sync().then(() => {
 
 app.use('/users', users)
 app.use('/rentals', rentals)
-app.use('/owners', owners)
+app.use('/hosts', hosts)
   
 module.exports = app
 
