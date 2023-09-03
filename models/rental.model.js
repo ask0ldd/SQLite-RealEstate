@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require("sequelize")
 const sequelize = require('../config/database')
+const Host = require("./host.model")
 
 const Rental = sequelize.define(
     "Rental", {
@@ -9,7 +10,7 @@ const Rental = sequelize.define(
             autoIncrement: true,
             unique: true
         },
-        owner: {
+        host: {
             type: DataTypes.INTEGER,
         },
         title: {
@@ -95,6 +96,14 @@ const Picture = sequelize.define(
 Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
 Rental.hasMany(Picture)
+Rental.hasOne(Host, {
+    foreignKey: 'id',
+    sourceKey: 'host',
+  })
+/*Host.belongsToMany(Rental, {
+    foreignKey: 'host',
+    sourceKey: 'id',
+  })*/
 
 Rental.sync()
 
