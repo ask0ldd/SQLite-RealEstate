@@ -10,9 +10,9 @@ const Rental = sequelize.define(
             autoIncrement: true,
             unique: true
         },
-        host: {
+        /*host: {
             type: DataTypes.INTEGER,
-        },
+        },*/
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -96,15 +96,10 @@ const Picture = sequelize.define(
 Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
 Rental.hasMany(Picture)
-Rental.hasOne(Host, {
-    foreignKey: 'id',
-    sourceKey: 'host',
-  })
-/*Host.belongsToMany(Rental, {
-    foreignKey: 'host',
-    sourceKey: 'id',
-  })*/
+//Host.hasOne(Rental, {foreignKey : 'HostId'})
+Host.hasOne(Rental)
+Rental.belongsTo(Host)
 
-Rental.sync()
+// Rental.sync()
 
 module.exports = Rental

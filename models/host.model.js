@@ -21,6 +21,6 @@ const Host = sequelize.define(
     },
 )
 
-Host.sync()
+// Host.sync()
 
 module.exports = Host
