@@ -1,5 +1,5 @@
 const Host = require('../models/host.model.js')
-const {Rental, Picture} = require('../models/rental.model.js')
+const {Rental, Picture, Tag, Equipment} = require('../models/rental.model.js')
 module.exports = async function initRental(){
     let rental = await Rental.create({
         "title": "Appartement cosy",
@@ -21,6 +21,18 @@ module.exports = async function initRental(){
         "location": "Ile de France - Paris 10e",
     })
 
+    const Tags = [{value : "batignolle"},{value : "montmartre"}]
+    Tags.forEach(async (tag) => {
+        let tagInstance = await Tag.create(tag)
+        rental.addTag(tagInstance)
+    })
+
+    const Equipments = [{value : "équipements de base"}, {value : "micro-ondes"}, {value : "douche italienne"}, {value : "frigo"}, {value : "WIFI"}]
+    Equipments.forEach(async (tag) => {
+        let equipmentInstance = await Equipment.create(tag)
+        rental.addEquipment(equipmentInstance)
+    })
+
     set = await rental.setHost(1)
     pictures = await Picture.findAll({where:{url : ["loc2.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ]}})
     pictures.forEach(async(picture) => await rental.addPicture(picture))
@@ -36,36 +48,5 @@ module.exports = async function initRental(){
     set = await rental.setHost(3)
     pictures = await Picture.findAll({where:{url : ["loc3.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ]}})
     pictures.forEach(async(picture) => await rental.addPicture(picture))
+    
 }
-
-/*
-	{
-		"id": "46d188c5",
-		"title": "Studio de charme - Buttes Chaumont",
-		"cover": "locs/loc3.jpg",
-		"pictures": [
-			"/locs/loc3.jpg",
-			"/locs/loc9.jpg",
-			"/locs/loc14.jpg",
-			"/locs/loc16.jpg"
-		],
-		"description": "À seulement deux pas des Buttes Chaumont, venez découvrir Paris dans ce studio tout équipé. Entièrement équipé pour votre confort et élégamment décoré, il vous permettra de vivre comme un Parisien le temps de votre séjour.",
-		"host": {
-			"firstname": "Franck",
-			"lastname": "Maher",
-			"picture": "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/profile-picture-2.jpg"
-		},
-		"rating": "3",
-		"location": "Ile de France - Paris 20e",
-		"equipments": [
-			"Wi-fi",
-			"Cuisine équipée",
-			"Télévision",
-			"Sèche Cheveux"
-		],
-		"tags": [
-			"Buttes Chaumont",
-			"Laumière",
-			"Studio"
-		]
-	},*/

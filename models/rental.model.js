@@ -108,9 +108,57 @@ const RentalsPictures = sequelize.define('RentalsPictures', {
     }
 })
 
-Rental.hasMany(Tag)
-Rental.hasMany(Equipment)
-Rental.belongsToMany(Picture, { through: RentalsPictures });
+const RentalsEquipments = sequelize.define('RentalsEquipments', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    RentalId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Rental,
+        key: 'id'
+      }
+    },
+    EquipmentId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Equipment,
+        key: 'id'
+      }
+    }
+})
+
+const RentalsTags = sequelize.define('RentalsTags', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
+    RentalId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Rental,
+        key: 'id'
+      }
+    },
+    TagId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Equipment,
+        key: 'id'
+      }
+    }
+})
+
+// Rental.hasMany(Tag)
+// Rental.hasMany(Equipment)
+Rental.belongsToMany(Tag, { through: RentalsTags })
+Tag.belongsToMany(Rental, { through: RentalsTags })
+Rental.belongsToMany(Equipment, { through: RentalsEquipments })
+Equipment.belongsToMany(Rental, { through: RentalsEquipments })
+Rental.belongsToMany(Picture, { through: RentalsPictures })
 Picture.belongsToMany(Rental, { through: RentalsPictures })
 Host.hasMany(Rental)
 Rental.belongsTo(Host)

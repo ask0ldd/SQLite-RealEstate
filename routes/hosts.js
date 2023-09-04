@@ -5,7 +5,7 @@ const router = express.Router()
 router.get('/', async (req, res) => {
     try{
         const hosts = await Host.findAll();
-        console.log("All hosts:", JSON.stringify(hosts, null, 2));
+        // console.log("All hosts:", JSON.stringify(hosts, null, 2));
         return res.status(200).json(hosts)
     } catch (error){
         console.error('Error finding the user:', error)
