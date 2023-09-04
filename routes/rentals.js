@@ -14,8 +14,13 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try{
-        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}});
-        return res.status(200).json({...rental, host : await rental.getHost()})
+        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}})
+        const {firstname, lastname, picture} = await rental.getHost()
+        return res.status(200).json({
+            ...rental, 
+            host : {firstname : firstname, lastname : lastname, picture : picture}, 
+            tags : (await rental.getTags()).map(rental => { return({value : rental.value}) })
+        })
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' })
