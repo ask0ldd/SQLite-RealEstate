@@ -5,9 +5,10 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try{
-        const rentals = await Rental.findAll()
+        const rentals = await Rental.findAll({include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})
         // console.log(await rentals[0].getPictures()[0])
-        return res.status(200).json(rentals)
+        // const formatedRentals = rentals.map(rental => { return(rentalFormating(rental))})
+        return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' })
@@ -17,7 +18,7 @@ router.get('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try{
         const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})
-        const {firstname, lastname, picture} = await rental.getHost()
+        // const {firstname, lastname, picture} = await rental.getHost()
 
         /*return res.status(200).json({
             ...rental, 
@@ -26,18 +27,7 @@ router.get('/:id', async (req, res) => {
             pictures : (await rental.getPictures()).map(rental => { return(rental.url) }),
         })*/
         
-        return res.status(200).json({
-            id : rental.id,
-            title : rental.title,
-            cover : rental.cover,
-            pictures : await rental.Pictures.map(picture => {return picture.url}),
-            description : rental.description,
-            host : {picture : rental.Host.picture, firstname : rental.Host.firstname, lastname : rental.Host.lastname},
-            rating : rental.rating,
-            location : rental.location,
-            equipments : await rental.Equipment.map(equipment => {return equipment.value}),
-            tags : await rental.Tags.map(tag => {return tag.value}),
-        })
+        return res.status(200).json(await rentalFormating(rental))
         
     } catch (error){
         console.error('Error finding the user:', error)
@@ -46,3 +36,18 @@ router.get('/:id', async (req, res) => {
 })
 
 module.exports = router
+
+function rentalFormating(rental){
+    return ({
+        id : rental.id,
+        title : rental.title,
+        cover : rental.cover,
+        pictures : rental.Pictures.map(picture => {return picture.url}),
+        description : rental.description,
+        host : {picture : rental.Host.picture, firstname : rental.Host.firstname, lastname : rental.Host.lastname},
+        rating : rental.rating,
+        location : rental.location,
+        equipments : rental.Equipment.map(equipment => {return equipment.value}),
+        tags : rental.Tags.map(tag => {return tag.value}),
+    })
+}
