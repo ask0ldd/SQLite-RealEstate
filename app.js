@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: true }))
 /*app.use(helmet())
 app.use('/images', express.static(path.join(__dirname, 'images')))*/
 
-// use routes
 const users = require('./routes/users')
 const rentals = require('./routes/rentals')
 const hosts = require('./routes/hosts')
@@ -31,6 +30,7 @@ sequelize.sync({ force: true }) // temp : reinit the tables each time the app is
     initHosts()
     initPictures()
     initRentals()
+
 }).catch((error) => {
     console.error('Error syncing database:', error)
 })

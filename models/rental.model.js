@@ -85,6 +85,7 @@ const Picture = sequelize.define(
     },
 )
 
+// create a table associating different rentals with different pictures
 const RentalsPictures = sequelize.define('RentalsPictures', {
     id: {
         type: DataTypes.INTEGER,
@@ -109,13 +110,9 @@ const RentalsPictures = sequelize.define('RentalsPictures', {
 
 Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
-//Rental.hasMany(Picture)
 Rental.belongsToMany(Picture, { through: RentalsPictures });
 Picture.belongsToMany(Rental, { through: RentalsPictures })
-//Host.hasOne(Rental, {foreignKey : 'HostId'})
 Host.hasMany(Rental)
 Rental.belongsTo(Host)
-
-// Rental.sync()
 
 module.exports = {Picture, Tag, Equipment, Rental}
