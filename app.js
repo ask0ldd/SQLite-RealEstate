@@ -21,6 +21,7 @@ const rentals = require('./routes/rentals')
 const hosts = require('./routes/hosts')
 const initHosts = require('./config/initHosts')
 const initRentals = require('./config/initRentals')
+const initPictures = require('./config/initPictures')
 
 // db sync
 sequelize.sync({ force: true }) // temp : reinit the tables each time the app is launched
@@ -28,6 +29,7 @@ sequelize.sync({ force: true }) // temp : reinit the tables each time the app is
     console.log('Database synced')
     // temp : populate some tables
     initHosts()
+    initPictures()
     initRentals()
 }).catch((error) => {
     console.error('Error syncing database:', error)

@@ -85,9 +85,9 @@ Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
 Rental.hasMany(Picture)
 //Host.hasOne(Rental, {foreignKey : 'HostId'})
-Host.hasOne(Rental)
+Host.hasMany(Rental)
 Rental.belongsTo(Host)
 
 // Rental.sync()
 
-module.exports = Rental
+module.exports = {Picture, Tag, Equipment, Rental}

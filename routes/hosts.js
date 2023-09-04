@@ -15,8 +15,8 @@ router.get('/', async (req, res) => {
 
 router.get('/:id', async (req, res) => {
     try{
-        const host = await Host.findOne({id : req.params.id});
-        console.log("Host:", JSON.stringify(host, null, 2));
+        const host = await Host.findOne({where:{id : parseInt(req.params.id)}});
+        // console.log("Host:", JSON.stringify(host, null, 2));
         return res.status(200).json(host)
     } catch (error){
         console.error('Error finding the user:', error)
@@ -26,7 +26,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', async (req, res) => {
     try{
-        const host = await Host.create({firstname : req.host.firstname, lastname : req.host.firstname, picture : req.host.picture})
+        const host = await Host.create({firstname : req.host.firstname, lastname : req.host.lastname, picture : req.host.picture})
         console.log("Auto-generated ID:", host.id);
     }catch(error){
         console.error('Error finding the user:', error)
