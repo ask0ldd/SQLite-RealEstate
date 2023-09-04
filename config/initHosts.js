@@ -1,8 +1,8 @@
 const Host = require('../models/host.model.js')
 
 module.exports = async function initHost(){
-    const hosts = await Host.bulkCreate(
-    [{
+    const hosts = await Host.bulkCreate([
+    {
         "firstname": "nathalie",
         "lastname": "jean",
         "picture": "https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/front-end-kasa-project/profile-picture-12.jpg"

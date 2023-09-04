@@ -81,9 +81,27 @@ const Picture = sequelize.define(
     },
 )
 
+const RentalsPictures = sequelize.define('RentalsPictures', {
+    RentalId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Rental, // 'Movies' would also work
+        key: 'id'
+      }
+    },
+    PictureId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: Picture, // 'Actors' would also work
+        key: 'id'
+      }
+    }
+})
+
 Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
 Rental.hasMany(Picture)
+Picture.belongsToMany(Rental, { through: RentalsPictures })
 //Host.hasOne(Rental, {foreignKey : 'HostId'})
 Host.hasMany(Rental)
 Rental.belongsTo(Host)
