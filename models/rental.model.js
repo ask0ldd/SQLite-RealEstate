@@ -13,6 +13,10 @@ const Rental = sequelize.define(
         /*host: {
             type: DataTypes.INTEGER,
         },*/
+        cover: {
+            type: DataTypes.STRING,
+            allowNull: false
+        },
         title: {
             type: DataTypes.STRING,
             allowNull: false
@@ -82,17 +86,22 @@ const Picture = sequelize.define(
 )
 
 const RentalsPictures = sequelize.define('RentalsPictures', {
+    id: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        autoIncrement: true
+    },
     RentalId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Rental, // 'Movies' would also work
+        model: Rental,
         key: 'id'
       }
     },
     PictureId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Picture, // 'Actors' would also work
+        model: Picture,
         key: 'id'
       }
     }
@@ -100,7 +109,8 @@ const RentalsPictures = sequelize.define('RentalsPictures', {
 
 Rental.hasMany(Tag)
 Rental.hasMany(Equipment)
-Rental.hasMany(Picture)
+//Rental.hasMany(Picture)
+Rental.belongsToMany(Picture, { through: RentalsPictures });
 Picture.belongsToMany(Rental, { through: RentalsPictures })
 //Host.hasOne(Rental, {foreignKey : 'HostId'})
 Host.hasMany(Rental)
