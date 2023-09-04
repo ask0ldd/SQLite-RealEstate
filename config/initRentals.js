@@ -18,5 +18,5 @@ module.exports = async function initRental(){
 
     /*const host = await Host.findAll({where :{ id : '1' }})
     console.log(host)*/
-    const set = await rental.setHost(1)
+    const set = await rental.setHost(2)
 }

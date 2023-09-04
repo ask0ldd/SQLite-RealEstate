@@ -36,18 +36,6 @@ const Rental = sequelize.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        /*equipments: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false
-        },
-        tags: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false
-        },
-        pictures: {
-            type: DataTypes.ARRAY(DataTypes.STRING),
-            allowNull: false
-        }*/
     },
 )
 

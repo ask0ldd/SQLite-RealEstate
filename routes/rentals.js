@@ -4,8 +4,9 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try{
-        const rental = await Rental.findAll({where :{ id : '1' }})
-        return res.status(200).json(rental, rental.getHost())
+        const rental = await Rental.findOne({where :{ id : '1' }})
+        //console.log(await rental.getHost())
+        return res.status(200).json({...rental, host : await rental.getHost()})
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' })
