@@ -19,10 +19,16 @@ app.use('/images', express.static(path.join(__dirname, 'images')))*/
 const users = require('./routes/users')
 const rentals = require('./routes/rentals')
 const hosts = require('./routes/hosts')
+const initHosts = require('./config/initHosts')
+const initRentals = require('./config/initRentals')
 
 // db sync
-sequelize.sync().then(() => {
+sequelize.sync({ force: true }) // temp : reinit the tables each time the app is launched
+.then(() => {
     console.log('Database synced')
+    // temp : populate some tables
+    initHosts()
+    initRentals()
 }).catch((error) => {
     console.error('Error syncing database:', error)
 })

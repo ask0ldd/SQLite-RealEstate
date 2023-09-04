@@ -1,6 +1,6 @@
 const Host = require('../models/host.model.js')
 const Rental = require('../models/rental.model.js')
-async function init (){
+module.exports = async function initRental(){
     const rental = await Rental.create({
         "title": "Appartement cosy",
         "cover": "loc1.jpg",
@@ -20,5 +20,3 @@ async function init (){
     console.log(host)*/
     const set = await rental.setHost(1)
 }
-
-init()
