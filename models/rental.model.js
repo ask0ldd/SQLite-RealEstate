@@ -69,6 +69,9 @@ const Equipment = sequelize.define(
             type: DataTypes.STRING
         },
     },
+    {
+        tableName: 'Equipments'
+    }
 )
 
 const Picture = sequelize.define(
@@ -124,7 +127,7 @@ const RentalsEquipments = sequelize.define('RentalsEquipments', {
     EquipmentId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Equipment,
+        model: Equipment/*.tableName*/,
         key: 'id'
       }
     }
@@ -146,7 +149,7 @@ const RentalsTags = sequelize.define('RentalsTags', {
     TagId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Equipment,
+        model: Tag,
         key: 'id'
       }
     }
