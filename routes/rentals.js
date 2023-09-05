@@ -6,7 +6,6 @@ const router = express.Router()
 const rentalCtrl = require ('../controllers/rental.ctrl.js')
 
 router.get('/', rentalCtrl.getAllRentals)
-
 router.get('/:id', rentalCtrl.getRentalById)
 
 module.exports = router
