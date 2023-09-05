@@ -12,8 +12,8 @@ module.exports = async function initRental(){
             rating : 5,
             location : "Ile de France - Paris 17e",
             host : 2,
-            tags : [{value : "batignolle"},{value : "montmartre"}],
-            equipments : [{value : "équipements de base"}, {value : "micro-ondes"}, {value : "douche italienne"}, {value : "frigo"}, {value : "WIFI"}],
+            tags : [{value : "Batignolle"},{value : "Montmartre"}],
+            equipments : [{value : "Equipements de base"}, {value : "Micro-ondes"}, {value : "Douche italienne"}, {value : "Frigo"}, {value : "WIFI"}],
             pictures : ["loc1.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
@@ -23,8 +23,8 @@ module.exports = async function initRental(){
             rating : 4,
             location : "Ile de France - Paris 10e",
             host : 1,
-            tags : [{value : "canal Saint Martin"}, {value : "République"}, {value : "appartement"}],
-            equipments : [{value : "parking"}, {value : "sèche cheveux"}, {value : "machine à laver"}, {value : "cuisine équipée"}, {value : "WIFI"}, {value : "télévision"}],
+            tags : [{value : "Canal Saint Martin"}, {value : "République"}, {value : "Appartement"}],
+            equipments : [{value : "Parking"}, {value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
             pictures : ["loc2.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
@@ -35,9 +35,43 @@ module.exports = async function initRental(){
             location: "Ile de France - Paris 20e",
             host : 3,
             tags : [{value : "Buttes Chaumont"}, {value : "Laumière"}, {value : "studio"}],
-            equipments : [{value : "sèche cheveux"}, {value : "machine à laver"}, {value : "cuisine équipée"}, {value : "WIFI"}, {value : "télévision"}],
+            equipments : [{value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
             pictures : ["loc3.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
+/**/
+        {
+            title : "Nid douillet au coeur du 11ème",
+            cover : "loc4.jpg",
+            description : "Venez découvrir Paris en séjournant dans ce nid douillet au coeur du 11ème. La vue sur le parc résidentiel saura vous reposer de vos longues journées de tourisme dans la capitale française. Et pour les plus fêtards d'entre vous, la rue Jean Pierre Timbaud vous permettra de découvrir la night-life parisienne à seulement 5 minutes de l'appartement.",
+            rating : 3,
+            location : "Ile de France - Paris 11e",
+            host : 1,
+            tags : [{value : "Parmentier"},{value : "Marais"},{value : "Parc"},{value : "Night Life"}],
+            equipments : [{value : "Chambre Séparée"}, {value : "Micro-ondes"}, {value : "Climatisation"}, {value : "Télévision"}, {value : "WIFI"}],
+            pictures : ["loc4.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+        },
+        {
+            title : "Magnifique appartement proche Canal Saint Martin",
+            cover : "loc5.jpg",
+            description : "Profitez du charme de la vie parisienne dans un magnifique appartement. A 3 minutes à pied du Canal Saint Martin, vous serez proche des transports, mais également de nombreux commerces. L'appartement est tout équipé, et possède également un parking pour ceux qui souhaitent se déplacer en voiture.",
+            rating : 4,
+            location : "Ile de France - Paris 10e",
+            host : 1,
+            tags : [{value : "canal Saint Martin"}, {value : "République"}, {value : "appartement"}],
+            equipments : [{value : "Parking"}, {value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
+            pictures : ["loc2.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+        },/*
+        {
+            title: "Studio de charme - Buttes Chaumont",
+            cover: "loc3.jpg",
+            description: "À seulement deux pas des Buttes Chaumont, venez découvrir Paris dans ce studio tout équipé. Entièrement équipé pour votre confort et élégamment décoré, il vous permettra de vivre comme un Parisien le temps de votre séjour.",
+            rating: 3,
+            location: "Ile de France - Paris 20e",
+            host : 3,
+            tags : [{value : "Buttes Chaumont"}, {value : "Laumière"}, {value : "studio"}],
+            equipments : [{value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
+            pictures : ["loc3.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+        },*/
     ]
 
     rentals.forEach(async(rental) => {
