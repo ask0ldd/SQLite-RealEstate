@@ -51,15 +51,15 @@ module.exports = async function initRental(){
             pictures : ["loc4.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
-            title : "Magnifique appartement proche Canal Saint Martin",
+            title : "Appartement de Standing - 10e",
             cover : "loc5.jpg",
-            description : "Profitez du charme de la vie parisienne dans un magnifique appartement. A 3 minutes à pied du Canal Saint Martin, vous serez proche des transports, mais également de nombreux commerces. L'appartement est tout équipé, et possède également un parking pour ceux qui souhaitent se déplacer en voiture.",
-            rating : 4,
+            description : "Ce loft entièrement rénové, et équipé de meubles de luxe saura vous séduire. Idéalement situé dans le 10ème arrondissement, vous déplacer dans Paris sera un véritable jeu d'enfant.",
+            rating : 5,
             location : "Ile de France - Paris 10e",
-            host : 1,
-            tags : [{value : "canal Saint Martin"}, {value : "République"}, {value : "appartement"}],
-            equipments : [{value : "Parking"}, {value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
-            pictures : ["loc2.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+            host : 3,
+            tags : [{value : "Goncourt"}, {value : "Proche commerces"},],
+            equipments : [{value : "Frigo Américain"}, {value : "Sèche cheveux"}, {value : "Chambre Séparée"}, {value : "Parking"}, {value : "WIFI"}],
+            pictures : ["loc5.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },/*
         {
             title: "Studio de charme - Buttes Chaumont",
@@ -74,24 +74,25 @@ module.exports = async function initRental(){
         },*/
     ]
 
-    rentals.forEach(async(rental) => {
+    // !!! forEach doesnt work with async/await
+    for(let rindex=0; rindex<rentals.length; rindex++){
         const rentalInstance = await Rental.create({
-            "title": rental.title,
-            "cover": rental.cover,
-            "description": rental.description,
-            "rating": rental.rating,
-            "location": rental.location,
+            "title": rentals[rindex].title,
+            "cover": rentals[rindex].cover,
+            "description": rentals[rindex].description,
+            "rating": rentals[rindex].rating,
+            "location": rentals[rindex].location,
         })
 
-        await rentalInstance.setHost(rental.host)
+        await rentalInstance.setHost(rentals[rindex].host)
 
-        const pictures = await Picture.findAll({where:{url : rental.pictures}})
+        const pictures = await Picture.findAll({where:{url : rentals[rindex].pictures}})
         // !!! forEach doesnt work with async/await
         for(let i=0; i<pictures.length; i++){
             await rentalInstance.addPicture(pictures[i])
         }
 
-        const tags = rental.tags
+        const tags = rentals[rindex].tags
         for(let i=0; i<tags.length; i++){
             const existingTag = await Tag.findOne({ where : tags[i] })
             if(existingTag) {
@@ -102,18 +103,18 @@ module.exports = async function initRental(){
             }
         }
 
-        const equipments = rental.equipments
+        const equipments = rentals[rindex].equipments
         for(let i=0; i<equipments.length; i++){
             const existingEquipment = await Equipment.findOne({ where : equipments[i]})
             if(existingEquipment != null) {
                 // await rentalInstance.addEquipment(existingEquipment)
-                existingEquipment.addRental(rentalInstance)
+                await existingEquipment.addRental(rentalInstance)
             } else {
                 const createdEquipment = await Equipment.create(equipments[i])
                 await rentalInstance.addEquipment(createdEquipment) 
             }
         }
 
-    })
+    }
     
 }
