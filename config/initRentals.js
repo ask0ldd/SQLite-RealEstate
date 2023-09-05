@@ -34,7 +34,7 @@ module.exports = async function initRental(){
             rating: 3,
             location: "Ile de France - Paris 20e",
             host : 3,
-            tags : [{value : "Buttes Chaumont"}, {value : "Laumière"}, {value : "studio"}],
+            tags : [{value : "Buttes Chaumont"}, {value : "Laumière"}, {value : "Studio"}],
             equipments : [{value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
             pictures : ["loc3.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
