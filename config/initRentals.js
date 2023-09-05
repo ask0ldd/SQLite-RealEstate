@@ -52,7 +52,7 @@ module.exports = async function initRental(){
         await rentalInstance.setHost(rental.host)
 
         const pictures = await Picture.findAll({where:{url : rental.pictures}})
-        // forEach doesnt work with async/await
+        // !!! forEach doesnt work with async/await
         for(let i=0; i<pictures.length; i++){
             await rentalInstance.addPicture(pictures[i])
         }
@@ -61,7 +61,7 @@ module.exports = async function initRental(){
         for(let i=0; i<tags.length; i++){
             const existingTag = await Tag.findOne({ where : tags[i] })
             if(existingTag) {
-                await rentalInstance.addTag(existingTag)
+                await existingTag.addRental(rentalInstance)
             } else {
                 const createdTag = await Tag.create(tags[i])
                 await rentalInstance.addTag(createdTag)
@@ -72,7 +72,8 @@ module.exports = async function initRental(){
         for(let i=0; i<equipments.length; i++){
             const existingEquipment = await Equipment.findOne({ where : equipments[i]})
             if(existingEquipment != null) {
-                await rentalInstance.setEquipment(existingEquipment)
+                // await rentalInstance.addEquipment(existingEquipment)
+                existingEquipment.addRental(rentalInstance)
             } else {
                 const createdEquipment = await Equipment.create(equipments[i])
                 await rentalInstance.addEquipment(createdEquipment) 
