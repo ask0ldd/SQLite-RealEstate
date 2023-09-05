@@ -60,18 +60,18 @@ module.exports = async function initRental(){
             tags : [{value : "Goncourt"}, {value : "Proche commerces"},],
             equipments : [{value : "Frigo Américain"}, {value : "Sèche cheveux"}, {value : "Chambre Séparée"}, {value : "Parking"}, {value : "WIFI"}],
             pictures : ["loc5.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
-        },/*
+        },
         {
-            title: "Studio de charme - Buttes Chaumont",
-            cover: "loc3.jpg",
-            description: "À seulement deux pas des Buttes Chaumont, venez découvrir Paris dans ce studio tout équipé. Entièrement équipé pour votre confort et élégamment décoré, il vous permettra de vivre comme un Parisien le temps de votre séjour.",
-            rating: 3,
-            location: "Ile de France - Paris 20e",
-            host : 3,
-            tags : [{value : "Buttes Chaumont"}, {value : "Laumière"}, {value : "studio"}],
-            equipments : [{value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
-            pictures : ["loc3.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
-        },*/
+            title: "Studio d'artiste",
+            cover: "loc6.jpg",
+            description: "Venez vous imprégner de la culture parisienne dans cet ancien studio d'artiste décoré avec goût, au coeur de Montmartre.",
+            rating: 5,
+            location: "Ile de France - Paris 18e",
+            host : 4,
+            tags : [{value : "Montmartre"}, {value : "Culture"}, {value : "Charme"}],
+            equipments : [{value : "Chambre Séparée"}, {value : "Parking"},],
+            pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+        },
     ]
 
     // !!! forEach doesnt work with async/await
