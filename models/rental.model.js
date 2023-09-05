@@ -166,4 +166,4 @@ Picture.belongsToMany(Rental, { through: RentalsPictures })
 Host.hasMany(Rental)
 Rental.belongsTo(Host)
 
-module.exports = {Picture, Tag, Equipment, Rental}
+module.exports = {Picture, Tag, Equipment, Rental, RentalsPictures}

@@ -1,5 +1,5 @@
 const Host = require('../models/host.model.js')
-const {Rental, Picture, Tag, Equipment} = require('../models/rental.model.js')
+const {Rental, Picture, Tag, Equipment, RentalsPictures} = require('../models/rental.model.js')
 const sequelize = require('../config/database')
 
 module.exports = async function initRental(){
@@ -52,41 +52,32 @@ module.exports = async function initRental(){
         await rentalInstance.setHost(rental.host)
 
         const pictures = await Picture.findAll({where:{url : rental.pictures}})
-        pictures.forEach(async(picture) => await rentalInstance.addPicture(picture))
+        // forEach doesnt work with async/await
+        for(let i=0; i<pictures.length; i++){
+            await rentalInstance.addPicture(pictures[i])
+        }
 
         const tags = rental.tags
-        tags.forEach(async (tagEl) => {
-            const existingTag = await Tag.findOne({ where : tagEl })
+        for(let i=0; i<tags.length; i++){
+            const existingTag = await Tag.findOne({ where : tags[i] })
             if(existingTag) {
-                rentalInstance.addTag(existingTag)
+                await rentalInstance.addTag(existingTag)
             } else {
-                const createdTag = await Tag.create(tagEl)
-                rentalInstance.addTag(createdTag)
+                const createdTag = await Tag.create(tags[i])
+                await rentalInstance.addTag(createdTag)
             }
-        })
+        }
 
         const equipments = rental.equipments
-        // console.log(equipments)
-        equipments.forEach(async (equipmentEl) => {
-            console.log(await Equipment.findAll())
-            const existingEquipment = await Equipment.findOne({ where : equipmentEl })
-            // console.log(existingEquipment)
+        for(let i=0; i<equipments.length; i++){
+            const existingEquipment = await Equipment.findOne({ where : equipments[i]})
             if(existingEquipment != null) {
-                // rentalInstance.addEquipment(existingEquipment)
-                
-                // Start a transaction
-                const t = await sequelize.transaction()
-                await rentalInstance.setEquipment(existingEquipment, { transaction: t })
-                await t.commit()
-                // console.log("test")
-                // await existingEquipment.setRental(rentalInstance)
+                await rentalInstance.setEquipment(existingEquipment)
             } else {
-                const t = await sequelize.transaction()
-                const createdEquipment = await Equipment.create(equipmentEl, { transaction: t })
-                await rentalInstance.addEquipment(createdEquipment, { transaction: t })
-                await t.commit()
+                const createdEquipment = await Equipment.create(equipments[i])
+                await rentalInstance.addEquipment(createdEquipment) 
             }
-        })
+        }
 
     })
     
