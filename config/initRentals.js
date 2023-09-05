@@ -1,5 +1,7 @@
 const Host = require('../models/host.model.js')
 const {Rental, Picture, Tag, Equipment} = require('../models/rental.model.js')
+const sequelize = require('../config/database')
+
 module.exports = async function initRental(){
 
     const rentals =[
@@ -47,7 +49,7 @@ module.exports = async function initRental(){
             "location": rental.location,
         })
 
-        const setHost = await rentalInstance.setHost(rental.host)
+        await rentalInstance.setHost(rental.host)
 
         const pictures = await Picture.findAll({where:{url : rental.pictures}})
         pictures.forEach(async(picture) => await rentalInstance.addPicture(picture))
@@ -64,13 +66,25 @@ module.exports = async function initRental(){
         })
 
         const equipments = rental.equipments
+        // console.log(equipments)
         equipments.forEach(async (equipmentEl) => {
+            console.log(await Equipment.findAll())
             const existingEquipment = await Equipment.findOne({ where : equipmentEl })
-            if(existingEquipment) {
-                rentalInstance.addEquipment(existingEquipment)
+            // console.log(existingEquipment)
+            if(existingEquipment != null) {
+                // rentalInstance.addEquipment(existingEquipment)
+                
+                // Start a transaction
+                const t = await sequelize.transaction()
+                await rentalInstance.setEquipment(existingEquipment, { transaction: t })
+                await t.commit()
+                // console.log("test")
+                // await existingEquipment.setRental(rentalInstance)
             } else {
-                const createdEquipment = await Equipment.create(equipmentEl)
-                rentalInstance.addEquipment(createdEquipment)
+                const t = await sequelize.transaction()
+                const createdEquipment = await Equipment.create(equipmentEl, { transaction: t })
+                await rentalInstance.addEquipment(createdEquipment, { transaction: t })
+                await t.commit()
             }
         })
 

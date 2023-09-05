@@ -5,9 +5,18 @@ const router = express.Router()
 
 router.get('/', async (req, res) => {
     try{
-        const rentals = await Rental.findAll({include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})
-        // console.log(await rentals[0].getPictures()[0])
-        // const formatedRentals = rentals.map(rental => { return(rentalFormating(rental))})
+        // const rentals = await Rental.findAll({include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})
+        const rentals = await Rental.findAll({include: [ Picture, Host, Tag, Equipment]})
+        /*await Promise.all(rentals.map(async (rental) => {
+            const pictures = await rental.getPictures()
+            rental.Pictures = pictures
+            const host = await rental.getHost()
+            rental.Host = host
+            const tags = await rental.getTags()
+            rental.Tags = tags
+            const equipments = await rental.getEquipment()
+            rental.Equipements = equipments
+        }))*/
         return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
     } catch (error){
         console.error('Error finding the user:', error)
