@@ -7,5 +7,6 @@ const rentalCtrl = require ('../controllers/rental.ctrl.js')
 
 router.get('/', rentalCtrl.getAllRentals)
 router.get('/:id', rentalCtrl.getRentalById)
+router.put('/:id', rentalCtrl.updateRentalById)
 
 module.exports = router

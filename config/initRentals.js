@@ -12,8 +12,8 @@ module.exports = async function initRental(){
             rating : 5,
             location : "Ile de France - Paris 17e",
             host : 2,
-            tags : [{value : "Batignolle"},{value : "Montmartre"}],
-            equipments : [{value : "Equipements de base"}, {value : "Micro-ondes"}, {value : "Douche italienne"}, {value : "Frigo"}, {value : "WIFI"}],
+            tags : ["Batignolle", "Montmartre"],
+            equipments : ["Equipements de base", "Micro-ondes", "Douche italienne", "Frigo", "WIFI"],
             pictures : ["loc1.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
@@ -23,8 +23,8 @@ module.exports = async function initRental(){
             rating : 4,
             location : "Ile de France - Paris 10e",
             host : 1,
-            tags : [{value : "Canal Saint Martin"}, {value : "République"}, {value : "Appartement"}],
-            equipments : [{value : "Parking"}, {value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
+            tags : ["Canal Saint Martin", "République", "Appartement"],
+            equipments : ["Parking", "Sèche cheveux", "Machine à laver", "Cuisine équipée", "WIFI", "Télévision"],
             pictures : ["loc2.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
@@ -34,8 +34,8 @@ module.exports = async function initRental(){
             rating: 3,
             location: "Ile de France - Paris 20e",
             host : 3,
-            tags : [{value : "Buttes Chaumont"}, {value : "Laumière"}, {value : "Studio"}],
-            equipments : [{value : "Sèche cheveux"}, {value : "Machine à laver"}, {value : "Cuisine équipée"}, {value : "WIFI"}, {value : "Télévision"}],
+            tags : ["Buttes Chaumont", "Laumière", "Studio"],
+            equipments : ["Sèche cheveux", "Machine à laver", "Cuisine équipée", "WIFI", "Télévision"],
             pictures : ["loc3.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
 /**/
@@ -46,8 +46,8 @@ module.exports = async function initRental(){
             rating : 3,
             location : "Ile de France - Paris 11e",
             host : 1,
-            tags : [{value : "Parmentier"},{value : "Marais"},{value : "Parc"},{value : "Night Life"}],
-            equipments : [{value : "Chambre Séparée"}, {value : "Micro-ondes"}, {value : "Climatisation"}, {value : "Télévision"}, {value : "WIFI"}],
+            tags : ["Parmentier", "Marais", "Parc", "Night Life"],
+            equipments : ["Chambre Séparée", "Micro-ondes", "Climatisation", "Télévision", "WIFI"],
             pictures : ["loc4.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
@@ -57,8 +57,8 @@ module.exports = async function initRental(){
             rating : 5,
             location : "Ile de France - Paris 10e",
             host : 3,
-            tags : [{value : "Goncourt"}, {value : "Proche commerces"},],
-            equipments : [{value : "Frigo Américain"}, {value : "Sèche cheveux"}, {value : "Chambre Séparée"}, {value : "Parking"}, {value : "WIFI"}],
+            tags : ["Goncourt", "Proche commerces",],
+            equipments : ["Frigo Américain", "Sèche cheveux", "Chambre Séparée", "Parking", "WIFI"],
             pictures : ["loc5.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
@@ -68,8 +68,8 @@ module.exports = async function initRental(){
             rating: 5,
             location: "Ile de France - Paris 18e",
             host : 4,
-            tags : [{value : "Montmartre"}, {value : "Culture"}, {value : "Charme"}],
-            equipments : [{value : "Chambre Séparée"}, {value : "Parking"},],
+            tags : ["Montmartre", "Culture", "Charme"],
+            equipments : ["Chambre Séparée", "Parking",],
             pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
     ]
@@ -94,23 +94,23 @@ module.exports = async function initRental(){
 
         const tags = rentals[rindex].tags
         for(let i=0; i<tags.length; i++){
-            const existingTag = await Tag.findOne({ where : tags[i] })
+            const existingTag = await Tag.findOne({ where :{value : tags[i]} })
             if(existingTag) {
                 await existingTag.addRental(rentalInstance)
             } else {
-                const createdTag = await Tag.create(tags[i])
+                const createdTag = await Tag.create({value : tags[i]})
                 await rentalInstance.addTag(createdTag)
             }
         }
 
         const equipments = rentals[rindex].equipments
         for(let i=0; i<equipments.length; i++){
-            const existingEquipment = await Equipment.findOne({ where : equipments[i]})
+            const existingEquipment = await Equipment.findOne({ where : {value : equipments[i]} })
             if(existingEquipment != null) {
                 // await rentalInstance.addEquipment(existingEquipment)
                 await existingEquipment.addRental(rentalInstance)
             } else {
-                const createdEquipment = await Equipment.create(equipments[i])
+                const createdEquipment = await Equipment.create({value : equipments[i]})
                 await rentalInstance.addEquipment(createdEquipment) 
             }
         }
