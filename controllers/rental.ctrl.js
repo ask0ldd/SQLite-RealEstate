@@ -24,7 +24,7 @@ exports.getRentalById = async (req, res) => {
 exports.updateRentalById = async (req, res) => {
     try{
         const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})
-        console.log(req)
+        console.log(req.body)
         // await Rental.update() 
         // await Rental.save()
         // return res.status(200).json(rentalFormating(rental))        
@@ -41,7 +41,7 @@ function rentalFormating(rental){
         cover : rental.cover,
         pictures : rental.Pictures.map(picture => {return picture.url}),
         description : rental.description,
-        host : {id: rental.host, picture : rental.Host.picture, firstname : rental.Host.firstname, lastname : rental.Host.lastname},
+        host : {id: rental.HostId, picture : rental.Host.picture, firstname : rental.Host.firstname, lastname : rental.Host.lastname},
         rating : rental.rating,
         location : rental.location,
         equipments : rental.Equipment.map(equipment => {return equipment.value}),
