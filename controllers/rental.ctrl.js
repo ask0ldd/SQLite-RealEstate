@@ -23,11 +23,32 @@ exports.getRentalById = async (req, res) => {
 
 exports.updateRentalById = async (req, res) => {
     try{
-        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})
-        console.log(req.body)
-        // await Rental.update() 
-        // await Rental.save()
-        // return res.status(200).json(rentalFormating(rental))        
+        const rental = req.body
+        await  Rental.update({ 
+            title: rental.title,
+            description: rental.description,
+            rating : rental.rating,
+            HostId : rental.host.id,
+            location : rental.location,
+        }, {
+            where: {
+                id : rental.id
+            }
+        })
+        const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})      
+        const bodyTags = req.body.tags
+        const dbToRemoveTags = await dbRental.getTags()
+        await dbRental.removeTags(dbToRemoveTags)
+        // .findCreateFind : get the existing tags and to create and the missing ones
+        // .addTag : link those tags to the target rental
+        for(let i = 0; i < bodyTags.length; i++)
+        {
+            const createdOrExistingTag = await Tag.findCreateFind({where: { value: bodyTags[i] },
+                defaults: { value: bodyTags[i] }
+            })
+            if(createdOrExistingTag.length > 0) await dbRental.addTag(createdOrExistingTag[0])
+        }
+        return res.status(200).json({message : "200 : Rental update successful."})
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
