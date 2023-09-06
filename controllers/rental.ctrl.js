@@ -35,7 +35,10 @@ exports.updateRentalById = async (req, res) => {
                 id : rental.id
             }
         })
+
+        // update Tags
         const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})      
+        
         const bodyTags = req.body.tags
         const dbToRemoveTags = await dbRental.getTags()
         await dbRental.removeTags(dbToRemoveTags)
@@ -48,7 +51,21 @@ exports.updateRentalById = async (req, res) => {
             })
             if(createdOrExistingTag.length > 0) await dbRental.addTag(createdOrExistingTag[0])
         }
+
+        const bodyEquipments = req.body.equipments
+        const dbToRemoveEquipments = await dbRental.getEquipments()
+        await dbRental.Equipments(dbToRemoveEquipments)
+        for(let i = 0; i < bodyEquipments.length; i++)
+        {
+            const createdOrExistingEquipment = await Tag.findCreateFind({where: { value: bodyEquipments[i] },
+                defaults: { value: bodyEquipments[i] }
+            })
+            if(createdOrExistingEquipment.length > 0) await dbRental.addTag(createdOrExistingEquipment[0])
+        }
+
         return res.status(200).json({message : "200 : Rental update successful."})
+
+
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
