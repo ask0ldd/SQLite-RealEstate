@@ -44,10 +44,10 @@ exports.updateRentalById = async (req, res) => {
         await dbRental.removeTags(dbToRemoveTags)
         // .findCreateFind : get the existing tags and to create and the missing ones
         // .addTag : link those tags to the target rental
-        for(let i = 0; i < bodyTags.length; i++)
+        for(const tag of bodyTags)
         {
-            const createdOrExistingTag = await Tag.findCreateFind({where: { value: bodyTags[i] },
-                defaults: { value: bodyTags[i] }
+            const createdOrExistingTag = await Tag.findCreateFind({where: { value: tag },
+                defaults: { value: tag }
             })
             if(createdOrExistingTag.length > 0) await dbRental.addTag(createdOrExistingTag[0])
         }
@@ -56,21 +56,25 @@ exports.updateRentalById = async (req, res) => {
         const bodyEquipments = req.body.equipments
         const dbToRemoveEquipements = await dbRental.getEquipements()
         await dbRental.removeEquipements(dbToRemoveEquipements)
-        for(let i = 0; i < bodyEquipments.length; i++)
+        
+        for(const equipment of bodyEquipments)
         {
-            const createdOrExistingEquipement = await Equipement.findCreateFind({where: { value: bodyEquipments[i] },
-                defaults: { value: bodyEquipments[i] }
+            const createdOrExistingEquipement = await Equipement.findCreateFind({where: { value: equipment },
+                defaults: { value: equipment }
             })
             if(createdOrExistingEquipement.length > 0) await dbRental.addEquipement(createdOrExistingEquipement[0])
         }
 
         return res.status(200).json({message : "200 : Rental update successful."})
 
-
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
     }
+}
+
+exports.savePicture = () => {
+
 }
 
 function rentalFormating(rental){

@@ -57,7 +57,7 @@ const Tag = sequelize.define(
     },
 )
 
-// Bug : Equipment won't go plural so Equipement
+// Bug : Equipment has no plural so Sequelize can't name the table correclty
 const Equipement = sequelize.define(
     "Equipement", {
         id: {
