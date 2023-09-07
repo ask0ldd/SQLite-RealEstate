@@ -1,5 +1,5 @@
 const Host = require('../models/host.model.js')
-const {Rental, Picture, Tag, Equipment, RentalsPictures} = require('../models/rental.model.js')
+const {Rental, Picture, Tag, Equipement, RentalsPictures} = require('../models/rental.model.js')
 const sequelize = require('../config/database')
 
 module.exports = async function initRental(){
@@ -105,13 +105,13 @@ module.exports = async function initRental(){
 
         const equipments = rentals[rindex].equipments
         for(let i=0; i<equipments.length; i++){
-            const existingEquipment = await Equipment.findOne({ where : {value : equipments[i]} })
+            const existingEquipment = await Equipement.findOne({ where : {value : equipments[i]} })
             if(existingEquipment != null) {
                 // await rentalInstance.addEquipment(existingEquipment)
                 await existingEquipment.addRental(rentalInstance)
             } else {
-                const createdEquipment = await Equipment.create({value : equipments[i]})
-                await rentalInstance.addEquipment(createdEquipment) 
+                const createdEquipment = await Equipement.create({value : equipments[i]})
+                await rentalInstance.addEquipement(createdEquipment) 
             }
         }
 

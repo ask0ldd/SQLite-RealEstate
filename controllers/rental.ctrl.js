@@ -1,9 +1,9 @@
-const {Rental, Picture, Tag, Equipment} = require('../models/rental.model.js')
+const {Rental, Picture, Tag, Equipement} = require('../models/rental.model.js')
 const Host = require('../models/host.model.js')
 
 exports.getAllRentals = async (req, res) => {
     try{
-        const rentals = await Rental.findAll({include: [ Picture, Host, Tag, Equipment]})
+        const rentals = await Rental.findAll({include: [ Picture, Host, Tag, Equipement]})
         return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
     } catch (error){
         console.error('Error finding the user:', error)
@@ -13,7 +13,7 @@ exports.getAllRentals = async (req, res) => {
 
 exports.getRentalById = async (req, res) => {
     try{
-        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})      
+        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})      
         return res.status(200).json(rentalFormating(rental))        
     } catch (error){
         console.error('Error finding the user:', error)
@@ -37,8 +37,7 @@ exports.updateRentalById = async (req, res) => {
         })
 
         // update Tags
-        const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipment}]})      
-        
+        let dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})    
         const bodyTags = req.body.tags
         const dbToRemoveTags = await dbRental.getTags()
         await dbRental.removeTags(dbToRemoveTags)
@@ -52,15 +51,16 @@ exports.updateRentalById = async (req, res) => {
             if(createdOrExistingTag.length > 0) await dbRental.addTag(createdOrExistingTag[0])
         }
 
-        const bodyEquipments = req.body.equipments
-        const dbToRemoveEquipments = await dbRental.getEquipments()
-        await dbRental.Equipments(dbToRemoveEquipments)
-        for(let i = 0; i < bodyEquipments.length; i++)
+        const bodyEquipements = req.body.Equipements
+        dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
+        const dbToRemoveEquipements = await dbRental.getEquipements()
+        await dbRental.removeEquipements(dbToRemoveEquipements)
+        for(let i = 0; i < bodyEquipements.length; i++)
         {
-            const createdOrExistingEquipment = await Tag.findCreateFind({where: { value: bodyEquipments[i] },
-                defaults: { value: bodyEquipments[i] }
+            const createdOrExistingEquipement = await Equipement.findCreateFind({where: { value: bodyEquipements[i] },
+                defaults: { value: bodyEquipements[i] }
             })
-            if(createdOrExistingEquipment.length > 0) await dbRental.addTag(createdOrExistingEquipment[0])
+            if(createdOrExistingEquipement.length > 0) await dbRental.addTag(createdOrExistingEquipement[0])
         }
 
         return res.status(200).json({message : "200 : Rental update successful."})
@@ -82,7 +82,7 @@ function rentalFormating(rental){
         host : {id: rental.HostId, picture : rental.Host.picture, firstname : rental.Host.firstname, lastname : rental.Host.lastname},
         rating : rental.rating,
         location : rental.location,
-        equipments : rental.Equipment.map(equipment => {return equipment.value}),
+        equipments : rental.Equipements.map(Equipement => {return Equipement.value}),
         tags : rental.Tags.map(tag => {return tag.value}),
     })
 }

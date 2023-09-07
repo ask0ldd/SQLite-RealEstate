@@ -57,8 +57,9 @@ const Tag = sequelize.define(
     },
 )
 
-const Equipment = sequelize.define(
-    "Equipment", {
+// Bug : Equipment won't go plural so Equipement
+const Equipement = sequelize.define(
+    "Equipement", {
         id: {
             type: DataTypes.INTEGER,
             primaryKey: true,
@@ -68,10 +69,10 @@ const Equipment = sequelize.define(
         value: {
             type: DataTypes.STRING
         },
-    },
+    },/*
     {
         tableName: 'Equipments'
-    }
+    }*/
 )
 
 const Picture = sequelize.define(
@@ -111,7 +112,7 @@ const RentalsPictures = sequelize.define('RentalsPictures', {
     }
 })
 
-const RentalsEquipments = sequelize.define('RentalsEquipments', {
+const RentalsEquipements = sequelize.define('RentalsEquipements', {
     id: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -124,10 +125,10 @@ const RentalsEquipments = sequelize.define('RentalsEquipments', {
         key: 'id'
       }
     },
-    EquipmentId: {
+    EquipementId: {
       type: DataTypes.INTEGER,
       references: {
-        model: Equipment/*.tableName*/,
+        model: Equipement/*.tableName*/,
         key: 'id'
       }
     }
@@ -159,11 +160,11 @@ const RentalsTags = sequelize.define('RentalsTags', {
 // Rental.hasMany(Equipment)
 Rental.belongsToMany(Tag, { through: RentalsTags })
 Tag.belongsToMany(Rental, { through: RentalsTags })
-Rental.belongsToMany(Equipment, { through: RentalsEquipments })
-Equipment.belongsToMany(Rental, { through: RentalsEquipments })
+Rental.belongsToMany(Equipement, { through: RentalsEquipements })
+Equipement.belongsToMany(Rental, { through: RentalsEquipements })
 Rental.belongsToMany(Picture, { through: RentalsPictures })
 Picture.belongsToMany(Rental, { through: RentalsPictures })
 Host.hasMany(Rental)
 Rental.belongsTo(Host)
 
-module.exports = {Picture, Tag, Equipment, Rental, RentalsPictures}
+module.exports = {Picture, Tag, Equipement, Rental, RentalsPictures}
