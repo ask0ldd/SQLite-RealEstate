@@ -36,8 +36,9 @@ exports.updateRentalById = async (req, res) => {
             }
         })
 
-        // update Tags
         const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})    
+        
+        // update Tags
         const bodyTags = req.body.tags
         const dbToRemoveTags = await dbRental.getTags()
         await dbRental.removeTags(dbToRemoveTags)
@@ -51,18 +52,17 @@ exports.updateRentalById = async (req, res) => {
             if(createdOrExistingTag.length > 0) await dbRental.addTag(createdOrExistingTag[0])
         }
 
+        // update Equipments
         const bodyEquipments = req.body.equipments
-        console.log(bodyEquipments)
-        // dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
         const dbToRemoveEquipements = await dbRental.getEquipements()
         await dbRental.removeEquipements(dbToRemoveEquipements)
-        /*for(let i = 0; i < bodyEquipments.length; i++)
+        for(let i = 0; i < bodyEquipments.length; i++)
         {
             const createdOrExistingEquipement = await Equipement.findCreateFind({where: { value: bodyEquipments[i] },
                 defaults: { value: bodyEquipments[i] }
             })
-            if(createdOrExistingEquipement.length > 0) await dbRental.addTag(createdOrExistingEquipement[0])
-        }*/
+            if(createdOrExistingEquipement.length > 0) await dbRental.addEquipement(createdOrExistingEquipement[0])
+        }
 
         return res.status(200).json({message : "200 : Rental update successful."})
 
