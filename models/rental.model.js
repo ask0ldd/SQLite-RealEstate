@@ -164,6 +164,8 @@ Rental.belongsToMany(Equipement, { through: RentalsEquipements })
 Equipement.belongsToMany(Rental, { through: RentalsEquipements })
 Rental.belongsToMany(Picture, { through: RentalsPictures })
 Picture.belongsToMany(Rental, { through: RentalsPictures })
+/*Rental.hasMany(Picture)
+Picture.belongsTo(Rental)*/
 Host.hasMany(Rental)
 Rental.belongsTo(Host)
 

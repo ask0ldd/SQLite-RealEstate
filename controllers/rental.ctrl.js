@@ -13,7 +13,8 @@ exports.getAllRentals = async (req, res) => {
 
 exports.getRentalById = async (req, res) => {
     try{
-        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})      
+        const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
+        // console.log(JSON.stringify(rental))
         return res.status(200).json(rentalFormating(rental))        
     } catch (error){
         console.error('Error finding the user:', error)
@@ -63,6 +64,19 @@ exports.updateRentalById = async (req, res) => {
                 defaults: { value: equipment }
             })
             if(createdOrExistingEquipement.length > 0) await dbRental.addEquipement(createdOrExistingEquipement[0])
+        }
+
+        // update Pictures
+        const bodyPictures = req.body.pictures
+        const dbToRemovePictures = await dbRental.getPictures()
+        await dbRental.removePictures(dbToRemovePictures)
+        
+        for(const picture of bodyPictures)
+        {
+            const createdOrExistingPicture = await Picture.findCreateFind({where: { url: picture },
+                defaults: { url: picture }
+            })
+            if(createdOrExistingPicture.length > 0) await dbRental.addPicture(createdOrExistingPicture[0])
         }
 
         return res.status(200).json({message : "200 : Rental update successful."})
