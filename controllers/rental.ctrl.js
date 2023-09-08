@@ -88,7 +88,12 @@ exports.updateRentalById = async (req, res) => {
 }
 
 exports.savePicture = () => {
-
+    try{
+        const {id, file} = req.body
+    } catch (error){
+        console.error('Error finding the user:', error)
+        res.status(500).json({ error: 'Internal server error' }) // update error code
+    }
 }
 
 function rentalFormating(rental){
