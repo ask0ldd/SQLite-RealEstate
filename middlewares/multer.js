@@ -6,7 +6,7 @@ const MIME_TYPES = { 'image/jpg': 'jpg', 'image/jpeg': 'jpg', 'image/png': 'png'
 const storage = multer.diskStorage({
     destination: (req, file, callback) => { 
       // save the file into the 'pics' folder
-      callback(null, 'pics/')
+      callback(null, 'pics')
     },
     filename: (req, file, callback) => { 
       // .split('.')[0] added to get rid of the extension before update the filename
