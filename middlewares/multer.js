@@ -5,14 +5,15 @@ const MIME_TYPES = { 'image/jpg': 'jpg', 'image/jpeg': 'jpg', 'image/png': 'png'
 
 const storage = multer.diskStorage({
     destination: (req, file, callback) => { 
-      // save the file into the 'pics' folder
-      callback(null, 'pics')
+        // save the file into the 'pics' folder
+        callback(null, 'pics/locs')
     },
     filename: (req, file, callback) => { 
       // .split('.')[0] added to get rid of the extension before update the filename
-      const name = file.originalname.split(' ').join('_').split('.')[0] // max length fname?
-      const extension = MIME_TYPES[file.mimetype] // valid extensions
-      callback(null, name + Date.now() + '.' + extension)
+      // const name = file.originalname.split(' ').join('_').split('.')[0]
+        const name = "loc_"
+        const extension = MIME_TYPES[file.mimetype] // valid extensions
+        callback(null, name + Date.now() + '.' + extension)
     }
 })
 

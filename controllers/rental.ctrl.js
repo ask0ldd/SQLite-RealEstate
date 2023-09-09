@@ -87,10 +87,10 @@ exports.updateRentalById = async (req, res) => {
     }
 }
 
-exports.savePicture = () => {
+exports.savePicture = async (req, res) => {
     try{
-        // const {image} = req.body
-        console.log("okok")
+        res.body = req.body
+        return res.status(200).json({message : "200 : Rental update successful.", filename : req.file.filename})
     } catch (error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
