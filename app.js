@@ -15,7 +15,6 @@ app.use(express.urlencoded({ extended: true }))
 /*app.use(helmet())
 app.use('/images', express.static(path.join(__dirname, 'images')))*/
 
-const users = require('./routes/users')
 const rentals = require('./routes/rentals')
 const hosts = require('./routes/hosts')
 const uploads = require('./routes/uploads')
@@ -48,7 +47,6 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/user', users)
 app.use('/rentals', rentals)
 app.use('/hosts', hosts)
 app.use('/upload', uploads)

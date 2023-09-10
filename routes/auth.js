@@ -4,5 +4,6 @@ const router = express.Router()
 const authCtrl = require ('../controllers/auth.ctrl.js')
 
 router.post('/login', authCtrl.log)
+router.post('/signup', authCtrl.signup)
 
 module.exports = router
