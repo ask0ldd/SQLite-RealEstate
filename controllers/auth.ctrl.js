@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
     try{
-        const user = await Rental.findOne({where:{email : req.body.email}})
+        const user = await User.findOne({where:{email : req.body.userEmail}})
         const isPasswordValid = await bcrypt.compare(req.body.password, user.password)
         if (!isPasswordValid) { return res.status(401).json({ message : 'Password & login dont match.' })}
         res.status(200).json({

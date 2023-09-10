@@ -22,6 +22,7 @@ const auth = require('./routes/auth')
 const initHosts = require('./config/initHosts')
 const initRentals = require('./config/initRentals')
 const initPictures = require('./config/initPictures')
+const initUsers = require('./config/initUsers')
 
 // db sync
 sequelize.sync({ force: true }) // temp : reinit the tables each time the app is launched
@@ -31,6 +32,7 @@ sequelize.sync({ force: true }) // temp : reinit the tables each time the app is
     initHosts()
     initPictures()
     initRentals()
+    initUsers()
 
 }).catch((error) => {
     console.error('Error syncing database:', error)
