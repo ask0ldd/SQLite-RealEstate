@@ -12,7 +12,6 @@ exports.login = async (req, res) => {
             // send back a jsonwebtoken
             token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '1h' })
         })
-
     } catch (error){
         console.error("Can't log:", error)
         res.status(500).json({ error: 'Internal server error' })
