@@ -37,7 +37,7 @@ exports.updateRentalById = async (req, res) => {
             }
         })
 
-        const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})    
+        const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
         
         // update Tags
         const bodyTags = req.body.tags
