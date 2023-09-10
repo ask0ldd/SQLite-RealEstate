@@ -19,6 +19,7 @@ const users = require('./routes/users')
 const rentals = require('./routes/rentals')
 const hosts = require('./routes/hosts')
 const uploads = require('./routes/uploads')
+const auth = require('./routes/auth')
 const initHosts = require('./config/initHosts')
 const initRentals = require('./config/initRentals')
 const initPictures = require('./config/initPictures')
@@ -47,10 +48,11 @@ app.use((req, res, next) => {
     next()
 })
 
-app.use('/users', users)
+app.use('/user', users)
 app.use('/rentals', rentals)
 app.use('/hosts', hosts)
 app.use('/upload', uploads)
+app.use('/auth', auth)
 
 module.exports = app
 
