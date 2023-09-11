@@ -1,5 +1,6 @@
 const {Rental, Picture, Tag, Equipement} = require('../models/rental.model.js')
 const Host = require('../models/host.model.js')
+const Like = require('../models/likes.model.js')
 
 exports.getAllRentals = async (req, res) => {
     try{
@@ -92,6 +93,20 @@ exports.savePicture = async (req, res) => {
         res.body = req.body
         return res.status(200).json({message : "200 : Rental update successful.", filename : req.file.filename})
     } catch (error){
+        console.error('Error finding the user:', error)
+        res.status(500).json({ error: 'Internal server error' }) // update error code
+    }
+}
+
+exports.addLike = async(req, res) => {
+    try{
+        const {userId, rentalId} = req.body
+        const UserInstance = await Like.create({
+            "idUser": userId,
+            "idRetal": rentalId,
+        })
+
+    }catch(error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
     }
