@@ -98,16 +98,44 @@ exports.savePicture = async (req, res) => {
     }
 }
 
-exports.addLike = async(req, res) => {
+exports.switchLike = async(req, res) => {
     try{
         const {userId, rentalId} = req.body
-        const UserInstance = await Like.create({
-            "idUser": userId,
-            "idRetal": rentalId,
-        })
+        const existingLike = await Like.findOne({where : {idUser : userId, idRental : rentalId}})
+        if(existingLike == null){
+            const likeInstance = await Like.create({
+                "idUser": userId,
+                "idRental": rentalId,
+            })
+            return likeInstance.id
+        }
+        await Like.destroy({where : {idUser : userId, idRental : rentalId}})
 
     }catch(error){
         console.error('Error finding the user:', error)
+        res.status(500).json({ error: 'Internal server error' }) // update error code
+    }
+
+}
+
+exports.isLiked = async(req, res) => {
+    try{
+        const {userId, rentalId} = req.body
+        const existingLike = await Like.findOne({where : {idUser : userId, idRental : rentalId}})
+        return existingLike != null ? true : false
+    }catch(error){
+        console.error('Error finding the user:', error)
+        res.status(500).json({ error: 'Internal server error' }) // update error code
+    }
+}
+
+exports.userLikesList = async(req, res) => {
+    try{
+        const {userId} = req.body
+        const likesList = await Like.findAll({where : {idUser : userId}})
+        return likesList
+    }catch(error){
+        console.error('Error finding the likes list related to this user :', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
     }
 }
