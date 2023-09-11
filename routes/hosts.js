@@ -1,5 +1,4 @@
 const express = require('express')
-const Host = require('../models/host.model.js')
 const router = express.Router()
 const hostCtrl = require ('../controllers/host.ctrl.js')
 

@@ -1,6 +1,6 @@
 const {Rental, Picture, Tag, Equipement} = require('../models/rental.model.js')
 const Host = require('../models/host.model.js')
-const Like = require('../models/likes.model.js')
+const Like = require('../models/like.model.js')
 
 exports.getAllRentals = async (req, res) => {
     try{
@@ -129,11 +129,11 @@ exports.isLiked = async(req, res) => {
     }
 }
 
-exports.userLikesList = async(req, res) => {
+exports.getUserLikesList = async(req, res) => {
     try{
         const {userId} = req.body
         const likesList = await Like.findAll({where : {idUser : userId}})
-        return likesList
+        return likesList.map(like => {return like.rentalId})
     }catch(error){
         console.error('Error finding the likes list related to this user :', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
