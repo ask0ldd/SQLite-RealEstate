@@ -107,10 +107,10 @@ exports.switchLike = async(req, res) => {
                 "idUser": userId,
                 "idRental": rentalId,
             })
-            return true
+            return res.status(200).json({rentalLiked : true})
         }
         await Like.destroy({where : {idUser : userId, idRental : rentalId}})
-        return false
+        return res.status(200).json({rentalLiked : false})
 
     }catch(error){
         console.error('Error finding the user:', error)
@@ -123,7 +123,7 @@ exports.isLiked = async(req, res) => {
     try{
         const {userId, rentalId} = req.body
         const existingLike = await Like.findOne({where : {idUser : userId, idRental : rentalId}})
-        return existingLike != null ? true : false
+        return res.status(200).json({rentalLiked : existingLike != null ? true : false})
     }catch(error){
         console.error('Error finding the user:', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
@@ -132,9 +132,11 @@ exports.isLiked = async(req, res) => {
 
 exports.getUserLikesList = async(req, res) => {
     try{
-        const {userId} = req.body
-        const likesList = await Like.findAll({where : {idUser : userId}})
-        return likesList.map(like => {return like.rentalId})
+        // console.log(req.params.userId)
+        const likesList = await Like.findAll({where : {idUser : +req.params.userId}})
+        if(likesList.length === 0) return []
+        console.log(likesList.map(like => { return like.idRental }))
+        return res.status(200).json(likesList.map(like => { return like.idRental }))
     }catch(error){
         console.error('Error finding the likes list related to this user :', error)
         res.status(500).json({ error: 'Internal server error' }) // update error code
