@@ -25,7 +25,7 @@ exports.getRentalById = async (req, res) => {
 
 exports.updateRentalById = async (req, res) => {
     try{
-        const rental = req.body
+        const rental = req.body.rental
         await  Rental.update({ 
             title: rental.title,
             description: rental.description,
@@ -42,7 +42,7 @@ exports.updateRentalById = async (req, res) => {
         const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
         
         // update Tags
-        const bodyTags = req.body.tags
+        const bodyTags = req.body.rental.tags
         const dbToRemoveTags = await dbRental.getTags()
         await dbRental.removeTags(dbToRemoveTags)
         // .findCreateFind : get the existing tags and to create and the missing ones
@@ -56,7 +56,7 @@ exports.updateRentalById = async (req, res) => {
         }
 
         // update Equipments
-        const bodyEquipments = req.body.equipments
+        const bodyEquipments = req.body.rental.equipments
         const dbToRemoveEquipements = await dbRental.getEquipements()
         await dbRental.removeEquipements(dbToRemoveEquipements)
         
@@ -69,7 +69,7 @@ exports.updateRentalById = async (req, res) => {
         }
 
         // update Pictures
-        const bodyPictures = req.body.pictures
+        const bodyPictures = req.body.rental.pictures
         const dbToRemovePictures = await dbRental.getPictures()
         await dbRental.removePictures(dbToRemovePictures)
         

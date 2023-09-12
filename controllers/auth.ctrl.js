@@ -12,8 +12,8 @@ exports.login = async (req, res) => {
 
         res.status(200).json({
             userId: user.id,
-            // send back a jsonwebtoken
-            token: jwt.sign({ userId: user.id }, 'RANDOM_TOKEN_SECRET', { expiresIn: '1h' })
+            // send back a jsonwebtoken using the secret in .env for encoding purpose
+            token: jwt.sign({ userId: user.id }, process.env.TOKEN_SECRET, { expiresIn: '1h' })
         })
     } catch (error){
         console.error("Can't log :", error)
