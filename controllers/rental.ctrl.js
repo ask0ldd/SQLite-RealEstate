@@ -38,6 +38,7 @@ exports.updateRentalById = async (req, res) => {
             }
         })
 
+        // console.log('tokenid ', req.auth.userId)
         const dbRental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
         
         // update Tags
@@ -133,7 +134,7 @@ exports.isLiked = async(req, res) => {
 exports.getUserLikesList = async(req, res) => {
     try{
         const likesList = await Like.findAll({where : {idUser : +req.params.userId}})
-        if(likesList.length === 0) res.status(200).json([])
+        if(likesList.length === 0) return res.status(200).json([])
         return res.status(200).json(likesList.map(like => { return like.idRental }))
     }catch(error){
         console.error('Error finding the likes list related to this user :', error)

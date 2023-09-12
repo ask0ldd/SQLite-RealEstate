@@ -1,15 +1,15 @@
 const jwt = require('jsonwebtoken')
 
-verifyToken = (req, res, next) => {
-    const configSecret = "RANDOM_TOKEN_SECRET"
-    const token = req.headers['x-access-token']
-    if (!token) { return res.status(403).send({ message: 'No token provided!' }) }
-
-    jwt.verify(token, configSecret, (err, decoded) => {
-        if (err) { return res.status(401).send({ message: 'Unauthorized!' }) }
-        req.auth = { userId : decoded.id }
-        next()
-    })
+module.exports = (req, res, next) => {
+    // const token = req.headers['x-access-token']
+    try{
+    const token = req.headers.authorization.split(' ')[1]
+    if (token == null) { return res.status(403).send({ message: 'No token provided!' }) }
+    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET)
+    req.auth = { userId : decodedToken.userId }
+    }catch(error){
+        res.status(401).json({
+			error: new Error('You are not authenticated.')
+		})
+    }
 }
-
-module.exports = verifyToken

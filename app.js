@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const cors = require('cors')
 const helmet = require('helmet')
+require('dotenv').config()
 
 // db
 const sequelize = require('./config/database')
