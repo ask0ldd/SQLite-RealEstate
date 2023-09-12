@@ -107,9 +107,10 @@ exports.switchLike = async(req, res) => {
                 "idUser": userId,
                 "idRental": rentalId,
             })
-            return likeInstance.id
+            return true
         }
         await Like.destroy({where : {idUser : userId, idRental : rentalId}})
+        return false
 
     }catch(error){
         console.error('Error finding the user:', error)

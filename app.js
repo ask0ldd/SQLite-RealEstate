@@ -19,6 +19,7 @@ const rentals = require('./routes/rentals')
 const hosts = require('./routes/hosts')
 const uploads = require('./routes/uploads')
 const auth = require('./routes/auth')
+const like = require('./routes/likes')
 const initHosts = require('./config/initHosts')
 const initRentals = require('./config/initRentals')
 const initPictures = require('./config/initPictures')
@@ -53,6 +54,7 @@ app.use('/rentals', rentals)
 app.use('/hosts', hosts)
 app.use('/upload', uploads)
 app.use('/auth', auth)
+app.use('/', like)
 
 module.exports = app
 
