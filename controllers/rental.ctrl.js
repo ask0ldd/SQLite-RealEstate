@@ -132,10 +132,8 @@ exports.isLiked = async(req, res) => {
 
 exports.getUserLikesList = async(req, res) => {
     try{
-        // console.log(req.params.userId)
         const likesList = await Like.findAll({where : {idUser : +req.params.userId}})
-        if(likesList.length === 0) return []
-        console.log(likesList.map(like => { return like.idRental }))
+        if(likesList.length === 0) res.status(200).json([])
         return res.status(200).json(likesList.map(like => { return like.idRental }))
     }catch(error){
         console.error('Error finding the likes list related to this user :', error)
