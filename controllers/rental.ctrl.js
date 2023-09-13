@@ -16,8 +16,6 @@ exports.getAllRentals = async (req, res) => {
 
 exports.getFilteredRentals = async(req, res) => {
     try{
-        /*console.log(req.body.column)
-        console.log(req.body.value)*/
         const {column, value} = req.body
         console.log(column)
         console.log(value)
@@ -28,6 +26,34 @@ exports.getFilteredRentals = async(req, res) => {
             }
             const rentals = await Rental.findAll({where:{location : {[Op.notLike]: '%Paris%'}}, include: [ Picture, Host, Tag, Equipement]})
             return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
+        }
+        if(column === "tags") {
+            if(value === "Appartement")
+            {
+                // iLike : case-insensitive
+                const rentals = await Rental.findAll({
+                    where:{
+                        [Op.or] : [
+                            {title : {[Op.like]: '%appartement%'}},
+                            {title : {[Op.like]: '%Appartement%'}}, 
+                            {description : {[Op.like]: '%appartement%'}},
+                            {description : {[Op.like]: '%Appartement%'}},
+                        ]
+                    }, include: [ Picture, Host, Tag, Equipement]})
+                return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
+            }else{
+                const rentals = await Rental.findAll({
+                    where:{
+                        [Op.or] : [
+                            // Op.iLike not compatible with sqlite
+                            {title : {[Op.like]: '%studio%'}},
+                            {title : {[Op.like]: '%Studio%'}}, 
+                            {description : {[Op.like]: '%studio%'}},
+                            {description : {[Op.like]: '%Studio%'}},
+                        ]
+                    }, include: [ Picture, Host, Tag, Equipement]})
+                return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
+            }
         }
     }catch(error){
         console.error(error)
