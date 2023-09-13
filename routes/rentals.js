@@ -5,7 +5,7 @@ const verifyToken = require('../middlewares/verifyToken')
 const rentalCtrl = require ('../controllers/rental.ctrl.js')
 
 router.get('/', rentalCtrl.getAllRentals)
-router.post('/filtering', rentalCtrl.getFilteredRentals)
+router.post('/filtered', rentalCtrl.getFilteredRentals)
 router.get('/:id', rentalCtrl.getRentalById)
 router.put('/:id', verifyToken, rentalCtrl.updateRentalById)
 // router.post('/picture/upload', rentalCtrl.savePicture) // verify token ?

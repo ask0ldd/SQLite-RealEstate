@@ -1,3 +1,4 @@
+const { Op } = require('sequelize')
 const {Rental, Picture, Tag, Equipement} = require('../models/rental.model.js')
 const Host = require('../models/host.model.js')
 const Like = require('../models/like.model.js')
@@ -15,7 +16,19 @@ exports.getAllRentals = async (req, res) => {
 
 exports.getFilteredRentals = async(req, res) => {
     try{
-
+        /*console.log(req.body.column)
+        console.log(req.body.value)*/
+        const {column, value} = req.body
+        console.log(column)
+        console.log(value)
+        if(column === "location") {
+            if(value === "Paris"){
+                const rentals = await Rental.findAll({where:{location : {[Op.like]: '%Paris%'}}, include: [ Picture, Host, Tag, Equipement]})
+                return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
+            }
+            const rentals = await Rental.findAll({where:{location : {[Op.notLike]: '%Paris%'}}, include: [ Picture, Host, Tag, Equipement]})
+            return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
+        }
     }catch(error){
         console.error(error)
         res.status(500).json({ error: new Error('Internal server error') })
