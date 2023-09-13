@@ -5,10 +5,11 @@ const Like = require('../models/like.model.js')
 exports.getAllRentals = async (req, res) => {
     try{
         const rentals = await Rental.findAll({include: [ Picture, Host, Tag, Equipement]})
+        if(rentals.length === 0) return res.status(404).json({ error: new Error("Couldn't find any rental.") })
         return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
     } catch (error){
         console.error('Error finding the user:', error)
-        res.status(500).json({ error: 'Internal server error' })
+        res.status(500).json({ error: new Error('Internal server error') })
     }
 }
 
@@ -16,10 +17,11 @@ exports.getRentalById = async (req, res) => {
     try{
         const rental = await Rental.findOne({where:{id : parseInt(req.params.id)}, include: [{ model: Picture}, { model: Host}, { model: Tag}, { model: Equipement}]})
         // console.log(JSON.stringify(rental))
+        if(rental == null) return res.status(404).json({ error: new Error("Couldn't find the rental.") })
         return res.status(200).json(rentalFormating(rental))        
     } catch (error){
         console.error('Error finding the user:', error)
-        res.status(500).json({ error: 'Internal server error' })
+        res.status(500).json({ error: new Error('Internal server error.') })
     }
 }
 
@@ -81,11 +83,11 @@ exports.updateRentalById = async (req, res) => {
             if(createdOrExistingPicture.length > 0) await dbRental.addPicture(createdOrExistingPicture[0])
         }
 
-        return res.status(200).json({message : "200 : Rental update successful."})
+        return res.status(200).json({message : "Rental update successful."})
 
     } catch (error){
         console.error('Error finding the user:', error)
-        res.status(500).json({ error: 'Internal server error' }) // update error code
+        res.status(500).json({ error: new Error('Internal server error') }) // update error code
     }
 }
 
@@ -95,7 +97,7 @@ exports.savePicture = async (req, res) => {
         return res.status(200).json({message : "200 : Rental update successful.", filename : req.file.filename})
     } catch (error){
         console.error('Error finding the user:', error)
-        res.status(500).json({ error: 'Internal server error' }) // update error code
+        res.status(500).json({ error: new Error('Internal server error') }) // update error code
     }
 }
 
@@ -115,7 +117,7 @@ exports.switchLike = async(req, res) => {
 
     }catch(error){
         console.error('Error finding the user:', error)
-        res.status(500).json({ error: 'Internal server error' }) // update error code
+        res.status(500).json({ error: new Error('Internal server error') }) // update error code
     }
 
 }
@@ -127,7 +129,7 @@ exports.isLiked = async(req, res) => {
         return res.status(200).json({rentalLiked : existingLike != null ? true : false})
     }catch(error){
         console.error('Error finding the user:', error)
-        res.status(500).json({ error: 'Internal server error' }) // update error code
+        res.status(500).json({ error: new Error('Internal server error') }) // update error code
     }
 }
 
