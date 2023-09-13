@@ -8,7 +8,16 @@ exports.getAllRentals = async (req, res) => {
         if(rentals.length === 0) return res.status(404).json({ error: new Error("Couldn't find any rental.") })
         return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
     } catch (error){
-        console.error('Error finding the user:', error)
+        console.error(error)
+        res.status(500).json({ error: new Error('Internal server error') })
+    }
+}
+
+exports.getFilteredRentals = async(req, res) => {
+    try{
+
+    }catch(error){
+        console.error(error)
         res.status(500).json({ error: new Error('Internal server error') })
     }
 }
