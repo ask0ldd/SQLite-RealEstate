@@ -17,8 +17,7 @@ exports.getAllRentals = async (req, res) => {
 exports.getFilteredRentals = async(req, res) => {
     try{
         const {column, value} = req.body
-        console.log(column)
-        console.log(value)
+
         if(column === "location") {
             if(value === "Paris"){
                 const rentals = await Rental.findAll({where:{location : {[Op.like]: '%Paris%'}}, include: [ Picture, Host, Tag, Equipement]})
@@ -27,6 +26,7 @@ exports.getFilteredRentals = async(req, res) => {
             const rentals = await Rental.findAll({where:{location : {[Op.notLike]: '%Paris%'}}, include: [ Picture, Host, Tag, Equipement]})
             return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
         }
+
         if(column === "tags") {
             if(value === "Appartement")
             {
@@ -54,6 +54,13 @@ exports.getFilteredRentals = async(req, res) => {
                     }, include: [ Picture, Host, Tag, Equipement]})
                 return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
             }
+        }
+
+        if(column === "rating") {
+            const rentals = await Rental.findAll({
+                where: {rating : {[Op.gte]: +value}}
+                , include: [ Picture, Host, Tag, Equipement]})
+            return res.status(200).json(rentals.map(rental => rentalFormating(rental)))
         }
     }catch(error){
         console.error(error)
