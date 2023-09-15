@@ -1,7 +1,9 @@
 const http = require('http');
 const app = require('./app');
 
-const port = normalizePort(process.env.PORT || '5678')
+// const port = normalizePort(process.env.PORT || '5678')
+
+const port = 5678
 
 app.set('port', port)
 
