@@ -7,6 +7,6 @@ services:
     depends_on:
       - db
   db:
-    image: 'sqlite'
+    image: 'nouchka/sqlite3'
     volumes:
       - './data:/data'
