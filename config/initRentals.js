@@ -304,6 +304,136 @@ module.exports = async function initRental(){
                 "Maison"
             ]
         },
+        {
+            title: "Loft de Luxe à la Défense",
+            cover: "loc6.jpg",
+            pictures: [
+                "loc6.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Si vous êtes à la recherche de l'endroit idéal pour poser vos valises entre deux rdvs d'affaire, ne cherchez plus. Notre loft est l'endroit idéal. En plein coeur de la Défense, il dispose également de tous les équipements pour que vous soyez comme chez vous.",
+            host: 11,
+            rating: 3,
+            location: "Ile de France - La Défense",
+            equipments: [
+                "Baie vitrée",
+                "Télévision",
+                "Four",
+                "Frigo",
+                "Wi-fi",
+                "Micro-Ondes",
+                "Parking"
+            ],
+            tags: [
+                "La Défense",
+                "Loft",
+                "Luxe"
+            ]
+        },
+        {
+            id: "1e180563",
+            title: "Charmant apt aux portes de Paris",
+            cover: "loc3.jpg",
+            pictures: [
+                "loc3.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Ce charmant appartement offre des prestations de luxe, aux portes de Paris. À deux pas de la ligne 3, vous pourrez accéder à toutes les attractions touristiques dont vous avez toujours rêvées.",
+            host: 11,
+            rating: 4,
+            location: "Ile de France - Levallois",
+            equipments: [
+                "Télévision",
+                "Four",
+                "Frigo",
+                "Hotte",
+                "Wi-fi",
+                "Micro-Ondes"
+            ],
+            tags: [
+                "Vue Parc",
+                "Apt de Charme"
+            ]
+        },
+        {
+            title: "Cheap - Chambre Paris 20",
+            cover: "loc2.jpg",
+            pictures: [
+                "loc2.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg",
+            ],
+            description: "Cette chambre dispose de toutes les facilités nécessaires. Proche métro et commerces.",
+            host: 5,
+            rating: "2",
+            location: "Ile de France - Paris 20e",
+            equipments: [
+                "Bouilloire",
+                "Wi-fi",
+                "Micro-Ondes"
+            ],
+            tags: [
+                "Vue Parc",
+                "Métros"
+            ]
+        },
+        {
+            title: "Charmant studio",
+            cover: "loc11.jpg",
+            pictures: [
+                "loc11.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Ce studio décoré avec goût sera votre nid douillet après une longue journée passée à découvrir Paris.",
+            host: 12,
+            rating: 4,
+            location: "Ile de France - Paris 13e",
+            equipments: [
+                "Équipements de base",
+                "Four",
+                "Frigo",
+                "Wi-fi",
+                "Micro-Ondes"
+            ],
+            tags: [
+                "Studio",
+                "Charmant",
+                "13e"
+            ]
+        },
+        {
+            title: "Magnifique appartement Rivoli",
+            cover: "loc10.jpg",
+            pictures: [
+                "loc10.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Au coeur du quartier historique du Marais, cet appartement est idéal pour un couple à la découverte de Paris. Situé sur la rue de Rivoli, il est à 5 minutes du Louvre.",
+            host: 1,
+            rating: 4,
+            location: "Ile de France - Paris 13e",
+            equipments: [
+                "Wi-fi",
+                "Équipements de base",
+                "Micro-Ondes",
+                "Frigo",
+                "Baignoire"
+            ],
+            tags: [
+                "Louvre",
+                "Marais",
+                "Rivoli"
+            ]
+        }
     ]
 
     // !!! forEach doesnt work with async/await
