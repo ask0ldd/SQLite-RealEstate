@@ -72,6 +72,46 @@ module.exports = async function initRental(){
             equipments : ["Chambre Séparée", "Parking",],
             pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
+        {
+            title: "Cheap - Studio 18ème",
+            cover: "loc7.jpg",
+            description: "Ce Studio entièrement fonctionnel sera votre parfait pied à terre pour toutes vos excursions parisiennes. Idéalement situé près des lignes 2 et 4, vous accéderez très rapidement à tous les points touristiques de Paris.",
+            rating: 3,
+            location: "Ile de France - Paris 18e",
+            host : 5,
+            tags : [
+                "Transports",
+                "Cheap",
+                "18ème"
+            ],
+            equipments : [
+                "Salle de bains",
+                "Frigo",
+                "Wi-fi",
+                "Sèche Cheveux",
+                "Bureau",
+                "Parking"
+            ],
+            pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+        },
+        {
+            title: "Superbe appartement proche Tour Eiffel",
+            cover: "loc8.jpg",
+            pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+            description: "Ce superbe appartement vous surprendra par son charme. Entièrement refait à neuf, il est équipé avec goût. La taille des pièces vous fera douter que vous êtes à Paris. Mais il vous suffit de sortir pour voir que vous êtes au coeur des plus belles attractions de Paris : le Louvre, la Tour Eiffel, le Grand Palais sont à deux pas. À vous de venir découvrir Paris !",
+            host : 6,
+            rating: 5,
+            location: "Ile de France - Paris 6e",
+            equipments: [
+              "Wi-fi",
+              "Sèche Cheveux",
+              "Machine à laver",
+              "Parking",
+              "Lit King Size",
+              "Ascenseur"
+            ],
+            tags: ["Luxe", "Tour Eiffel", "T3", "6ème"]
+        }
     ]
 
     // !!! forEach doesnt work with async/await
