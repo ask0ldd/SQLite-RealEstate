@@ -164,7 +164,61 @@ module.exports = async function initRental(){
                 "Metro 3",
                 "Metro 2"
             ]
-        }
+        },
+        {
+            title: "Charmant Studio Marais",
+            cover: "loc11.jpg",
+            pictures: [
+                "loc11.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Situé en plein coeur du Marais, notre studio est idéal pour les touristes en quête de découverte. Sa cuisine toute équipée est particulièrement pratique.",
+            host: 8,
+            rating: 4,
+            location: "Ile de France - Paris 11e",
+            equipments: [
+                "Clic-clac",
+                "Four",
+                "Sèche Cheveux",
+                "Wi-fi"
+            ],
+            tags: [
+                "Marais",
+                "Studio",
+                "Parc"
+            ]
+        },
+        {
+            title: "Studio fonctionnel République",
+            cover: "loc12.jpg",
+            pictures: [
+                "loc12.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Idéalement situé à 2 pas de la place de la République, ce studio particulièrement fonctionnel est parfait pour découvrir Paris. Proche de tous les points d'intérêts grâce aux 5 lignes de métro qui sont à 5 minutes, vous pourrez rentabiliser votre temps passé à la capitale.",
+            host: 9,
+            rating: 3,
+            location: "Ile de France - Paris 3e",
+            equipments: [
+                "Rangements",
+                "Lit",
+                "Sèche Cheveux",
+                "Wi-fi",
+                "TV",
+                "Bouilloire"
+            ],
+            tags: [
+                "Marais",
+                "République",
+                "Studio",
+                "Proche Métros",
+                "Commerces"
+            ]
+        },
     ]
 
     // !!! forEach doesnt work with async/await
