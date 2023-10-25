@@ -219,6 +219,91 @@ module.exports = async function initRental(){
                 "Commerces"
             ]
         },
+        {
+            title: "Bungalow dans la forêt",
+            cover: "loc13.jpg",
+            pictures: [
+                "loc13.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Quittez Paris pour vous mettre au vert. À seulement 30 minutes de la Gare du Nord, venez découvrir la forêt d'Ecouen directement depuis la fenêtre de votre bungalow. Entièrement équipé, ce logement saura vous accueillir dans le confort, tout en vous permettant de vous concentrer sur l'essentiel. Le matin, ouvrez les fenêtres, et profitez du chant des oiseaux.",
+            host: 9,
+            rating: 5,
+            location: "Ile de France - Ecouen",
+            equipments: [
+                "SDB",
+                "Cuisine équipée",
+                "Toilettes sèches",
+                "Frigo",
+                "Bouilloire"
+            ],
+            tags: [
+                "Forêt",
+                "Nature",
+                "Musée d'Ecouen"
+            ]
+        },
+        {
+            title: "Grande Maison proche banlieue",
+            cover: "loc14.jpg",
+            pictures: [
+                "loc14.jpg",
+                "loc9.jpg",
+                "loc16.jpg"
+            ],
+            description: "Vous chercher un endroit pour fêter un anniversaire entre amis tout en restant proche de Paris ? Ne cherchez plus ! Entièrement équipée, cette maison est l'endroit idéal pour se regrouper.",
+            host: 10,
+            rating: 4,
+            location: "Ile de France - Arnouville",
+            equipments: [
+                "SDB",
+                "Cuisine équipée",
+                "Frigo",
+                "Bouilloire",
+                "WIFI",
+                "Télévision",
+                "Cintres",
+                "Équipements de base"
+            ],
+            tags: [
+                "Forêt",
+                "Nature",
+                "Grande maison"
+            ]
+        },
+        {
+            title: "Maison T5 - Le Vésinet",
+            cover: "loc15.jpg",
+            pictures: [
+                "loc15.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Maison T5. Idéale pour grands groupes. 45 minutes de Paris Saint-Lazare.",
+            host: 10,
+            rating: 3,
+            location: "Ile de France - Arnouville",
+            equipments: [
+                "Bouilloire",
+                "SDB",
+                "Cuisine équipée",
+                "Frigo",
+                "WIFI",
+                "TV",
+                "Cintres",
+                "Four",
+                "Micro-Ondes",
+                "Parking"
+            ],
+            tags: [
+                "Nature",
+                "Groupe",
+                "Maison"
+            ]
+        },
     ]
 
     // !!! forEach doesnt work with async/await
