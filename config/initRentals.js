@@ -92,12 +92,12 @@ module.exports = async function initRental(){
                 "Bureau",
                 "Parking"
             ],
-            pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+            pictures : ["loc7.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
         },
         {
             title: "Superbe appartement proche Tour Eiffel",
             cover: "loc8.jpg",
-            pictures : ["loc6.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
+            pictures : ["loc8.jpg", "loc9.jpg", "loc14.jpg", "loc16.jpg", ],
             description: "Ce superbe appartement vous surprendra par son charme. Entièrement refait à neuf, il est équipé avec goût. La taille des pièces vous fera douter que vous êtes à Paris. Mais il vous suffit de sortir pour voir que vous êtes au coeur des plus belles attractions de Paris : le Louvre, la Tour Eiffel, le Grand Palais sont à deux pas. À vous de venir découvrir Paris !",
             host : 6,
             rating: 5,
@@ -111,6 +111,59 @@ module.exports = async function initRental(){
               "Ascenseur"
             ],
             tags: ["Luxe", "Tour Eiffel", "T3", "6ème"]
+        },
+        {
+            title: "Suite familiale",
+            cover: "loc9.jpg",
+            pictures: [
+                "../assets/locs/loc9.jpg",
+                "../assets/locs/loc14.jpg",
+                "../assets/locs/loc16.jpg"
+            ],
+            description: "Paris vous tend les bras ! En famille ou entre amis, venez découvrir la ville de l'amour dans un appartement de goût. Vous pourrez profiter de tous les commerces seulement à quelques minutes de l'appartement. Sa proximité avec la gare Montparnasse en fait également un choix idéal pour celles et ceux qui doivent prendre un train.",
+            host: 7,
+            rating: 4,
+            location: "Ile de France - Paris 14e",
+            equipments: [
+                "Climatisation",
+                "Machine à laver",
+                "Sèche Cheveux",
+                "Wi-fi",
+                "Parking"
+            ],
+            tags: [
+                "Montparnasse",
+                "Commerces",
+                "Famille"
+            ]
+        },
+        {
+            title: "Appartement moderne sur parc",
+            cover: "loc10.jpg",
+            pictures: [
+                "loc10.jpg",
+                "loc9.jpg",
+                "loc14.jpg",
+                "loc16.jpg"
+            ],
+            description: "Respirer en plein coeur de Paris ? C'est possible ! Avec vue sur un parc résidentiel, vous pourrez ouvrir les fenêtres sans avoir à souffrir du bruit des voitures et de la pollution. Au contraire, vous pourrez écouter les oiseaux. Notre appartement est également idéalement situé au coeur du 11ème arrondissement. Proche des lignes 3 et 2, vous pourrez découvrir Paris sans effort !",
+            host: 7,
+            rating: 3,
+            location: "Ile de France - Paris 11e",
+            equipments: [
+                "Vue Parc",
+                "Chauffage",
+                "Sèche linge",
+                "Sèche Cheveux",
+                "Wi-fi",
+                "Ascenseur"
+            ],
+            tags: [
+                "Père Lachaise",
+                "11e",
+                "Metro 3",
+                "Metro 2"
+            ]
         }
     ]
 
